@@ -29,6 +29,7 @@ type ratingLimits = 1 | 2 | 3;
 
 function calculateExercises(targetValue:number, exerciseHoursArray:number[]):ExerciseReturnType {
     
+    console.log(exerciseHoursArray);
     let periodLength = exerciseHoursArray.length;
     let trainingDays = exerciseHoursArray.filter((num:number) => num>0).length;
     let target = targetValue;
@@ -105,13 +106,13 @@ const parseArguments = (args: Array<string>): argumentValues => {
   let newStringArrayHours = args.slice(3, args.length);
   let newNumbersArrayHours = [];
   for (let i = 0; i < newStringArrayHours.length; i++) {
-    newNumbersArrayHours.push(parseInt(newStringArrayHours[i]));
+    newNumbersArrayHours.push(Number(newStringArrayHours[i]));
     if (!isNumber(newStringArrayHours[i])) {
         arrayAreNumbers = false;
     }
   }
 
-  if (!arrayAreNumbers) {
+  if (!arrayAreNumbers || !arg2NaNCheck) {
     throw new Error('You have not entered only numbers');
   }else {
     return {
