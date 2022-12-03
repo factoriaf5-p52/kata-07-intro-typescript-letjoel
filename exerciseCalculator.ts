@@ -1,6 +1,7 @@
 
 
 interface ExerciseReturnType { 
+    
     periodLength: number;
     trainingDays: number;
     target: number;
@@ -41,30 +42,32 @@ function calculateExercises(exerciseHoursArray:number[], targetValue:number):Exe
     let success:boolean;
         if (average >= target) {
             success = true;
+        }else{
+            success = false;
         }
 
     let rating:ratingLimits;
-        if (average >= 1) {
+        if (average > 3) {
             rating = 3;
         }
-        if (average >= 0.5 && average < 1) {
+        if (average > 2 && average <= 3) {
             rating = 2;
         }
-        if (average < 0.5) {
+        if (average <= 2) {
             rating = 1;
         }
 
     let ratingDescription;
-        if (average >= 1) {
+        if (average > 3) {
             ratingDescription = 'amazing, you are on fit';
         }
-        if (average >= 0.5 && average < 1) {
+        if (average > 2 && average <= 3) {
             ratingDescription = 'you are doing really well';
         }
-        if (average < 0.5) {
+        if (average <= 2) {
             ratingDescription = 'not too bad but could be better';
         }        
-    };
+   
 
 
     return {
@@ -77,7 +80,7 @@ function calculateExercises(exerciseHoursArray:number[], targetValue:number):Exe
         target: target,
     }
     
-    
-}
+}; 
+
 
 console.log(calculateExercises([3, 0, 2, 4.5, 0, 3, 1],2)); 
