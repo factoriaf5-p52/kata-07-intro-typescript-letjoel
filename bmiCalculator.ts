@@ -1,4 +1,6 @@
-const calculateBmi  = (height: number, weight: number) => {
+
+
+const calculateBmi  = (height: number, weight: number): string => {
     //BMI: masa dividido por (estatura al cuadrado)
     let bmi = weight / ((height/100)**2)
     if (bmi < 18.5) {
@@ -19,4 +21,19 @@ const calculateBmi  = (height: number, weight: number) => {
   
 }
 
-console.log(calculateBmi(180, 74)); 
+const a: number = Number(process.argv[2])
+const b: number = Number(process.argv[3])
+
+try {
+    console.log(calculateBmi(a, b)); 
+} catch (error: unknown) {
+  let errorMessage = 'Something went wrong.'
+  if (error instanceof Error) {
+    errorMessage += ' Error: ' + error.message;
+  }
+  console.log(errorMessage);
+}
+
+
+
+

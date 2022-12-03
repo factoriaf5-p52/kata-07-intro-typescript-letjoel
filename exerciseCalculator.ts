@@ -1,5 +1,3 @@
-
-
 interface ExerciseReturnType { 
     
     periodLength: number;
@@ -11,10 +9,6 @@ interface ExerciseReturnType {
     ratingDescription: string;
 }
 
-interface ExerciseArguments {
-    exerciseHoursArray:number[];
-    targetValue:number;
-}
 
 // const parseArguments = (args: Array<string>): Exercise => {
 //   if (args.length < 2) throw new Error('Not enough days');
@@ -33,7 +27,7 @@ interface ExerciseArguments {
 type ratingLimits = 1 | 2 | 3;
 
 
-function calculateExercises(exerciseHoursArray:number[], targetValue:number):ExerciseReturnType {
+function calculateExercises(targetValue:number, exerciseHoursArray:number[]):ExerciseReturnType {
     
     let periodLength = exerciseHoursArray.length;
     let trainingDays = exerciseHoursArray.filter((num:number) => num>0).length;
@@ -82,5 +76,65 @@ function calculateExercises(exerciseHoursArray:number[], targetValue:number):Exe
     
 }; 
 
+// const arg1: number = Number(process.argv[3]);
+// const arg2: number[] = Number[(process.argv[2])];
+// console.log(calculateExercises(arg1, arg2)); 
 
-console.log(calculateExercises([3, 0, 2, 4.5, 0, 3, 1],2)); 
+
+interface argumentValues {
+    target: number;
+    arrayHours: number[];
+}
+
+
+function isNumber(value) {
+
+    if (/^[+-]?\d+(\.\d+)?$/.test(value) || /^\d+$/.test(value)) {
+        return true;
+    }else {return false}
+
+}
+
+const parseArguments = (args: Array<string>): argumentValues => {
+  if (args.length < 4) throw new Error('Not enough arguments');
+  if (args.length > 104) throw new Error('Too many arguments, enter maximum 100 days');
+
+
+  let arg2NaNCheck = !isNaN(Number(args[2])); //target is number?
+  let arrayAreNumbers = true;
+  let newStringArrayHours = args.slice(3, args.length);
+  let newNumbersArrayHours = [];
+  for (let i = 0; i < newStringArrayHours.length; i++) {
+    newNumbersArrayHours.push(parseInt(newStringArrayHours[i]));
+    if (!isNumber(newStringArrayHours[i])) {
+        arrayAreNumbers = false;
+    }
+  }
+
+  if (!arrayAreNumbers) {
+    throw new Error('You have not entered only numbers');
+  }else {
+    return {
+      target: Number(args[2]),
+      arrayHours: newNumbersArrayHours
+    }
+  }
+ 
+
+
+
+}
+
+try {
+    const { target, arrayHours } = parseArguments(process.argv);
+
+    console.log(calculateExercises(target, arrayHours));
+    
+
+} catch (error: unknown) {
+  let errorMessage = 'Something bad happened.'
+  if (error instanceof Error) {
+    errorMessage += ' Error: ' + error.message;
+  }
+  console.log(errorMessage);
+}
