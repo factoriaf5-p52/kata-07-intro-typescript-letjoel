@@ -1,6 +1,6 @@
 
 
-const calculateBmi  = (height: number, weight: number): string => {
+export const calculateBmi  = (height: number, weight: number): string => {
     //BMI: masa dividido por (estatura al cuadrado)
     let bmi = weight / ((height/100)**2)
     if (bmi < 18.5) {

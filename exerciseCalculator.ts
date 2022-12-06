@@ -27,7 +27,7 @@ interface ExerciseReturnType {
 type ratingLimits = 1 | 2 | 3;
 
 
-function calculateExercises(targetValue:number, exerciseHoursArray:number[]):ExerciseReturnType {
+export function calculateExercises(targetValue:number, exerciseHoursArray:number[]):ExerciseReturnType {
     
     console.log(exerciseHoursArray);
     let periodLength = exerciseHoursArray.length;
@@ -88,7 +88,7 @@ interface argumentValues {
 }
 
 
-function isNumber(value) {
+export function isNumber(value:any) {
 
     if (/^[+-]?\d+(\.\d+)?$/.test(value) || /^\d+$/.test(value)) {
         return true;
